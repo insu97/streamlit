@@ -1,7 +1,7 @@
-streamlit
-numpy
-tensorflow
-collections
-matplotlib
-plotly
-sklearn
+# streamlit
+# numpy
+# tensorflow
+# collections
+# matplotlib
+# plotly
+# sklearn
