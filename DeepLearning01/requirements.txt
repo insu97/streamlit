@@ -4,4 +4,4 @@ tensorflow
 # collections
 matplotlib
 plotly
-sklearn
+scikit-learn
