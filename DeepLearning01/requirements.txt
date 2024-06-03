@@ -2,6 +2,6 @@ streamlit
 numpy
 tensorflow
 # collections
-# matplotlib
-# plotly
-# sklearn
+matplotlib
+plotly
+sklearn
