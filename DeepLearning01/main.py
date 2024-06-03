@@ -1,12 +1,12 @@
 import streamlit as st
 import numpy as np
 from tensorflow import keras
-from collections import OrderedDict
 import matplotlib.pyplot as plt
 import plotly.express as px
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import Normalizer
+from function import *
 st.set_page_config(layout="wide")
 
 st.title("Deep-Learning-from-Scratch01")
@@ -16,10 +16,19 @@ tab1, tab2 = st.tabs(["tab1", "tab2"])
 with st.sidebar:
     btn_load = st.button("mnist_data 불러오기")
     btn_flatten = st.button("flatten 작업")
+
     with st.form(key='scaler'):
         choice_scaler = ['StandardScaler', 'MinMaxScaler', 'Normalizer']
         select_scaler = st.selectbox('Scaler 선택', choice_scaler, placeholder="scaler를 선택해주세요", index=None)
         submit_scaler = st.form_submit_button(label='Submit')
+    
+    seed_value = st.slider('seed', min_value=1, max_value=100, value=42)
+    np.random.seed(seed_value)
+
+    with st.form(key='Network'):
+        st.number_input("weight_init_std 값을 입력하세요")
+
+
 
 with tab1:
     col1, col2 = st.columns([1,1])
