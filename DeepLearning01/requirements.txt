@@ -1,6 +1,6 @@
-# streamlit
-# numpy
-# tensorflow
+streamlit
+numpy
+tensorflow
 # collections
 # matplotlib
 # plotly
