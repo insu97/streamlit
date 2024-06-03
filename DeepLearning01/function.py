@@ -93,7 +93,7 @@ class SoftmaxWithLoss:
         return dx
 
 class MnistNet:
-    def __init__(self, input_size, hidden_size, output_size, weight_init_std = 0.01):
+    def __init__(self, input_size, hidden_size, output_size):
         
         # 가중치 초기화 
         self.params = {}

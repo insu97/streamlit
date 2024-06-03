@@ -5,3 +5,4 @@ tensorflow
 matplotlib
 plotly
 scikit-learn
+pandas
