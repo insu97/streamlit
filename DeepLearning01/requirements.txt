@@ -1,0 +1,7 @@
+streamlit
+numpy
+tensorflow
+collections
+matplotlib
+plotly
+sklearn
