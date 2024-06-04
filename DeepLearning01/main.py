@@ -26,7 +26,7 @@ with st.sidebar:
     seed_value = st.slider('seed', min_value=1, max_value=100, value=42)
     np.random.seed(seed_value)
 
-    btn_network = st.button("network 생성")
+    btn_network = st.button("network 생성 및 학습")
 
 
 
@@ -177,13 +177,22 @@ with tab2:
                 test_acc = net.accuracy(x_test, y_test)
                 train_acc_list.append(train_acc)
                 test_acc_list.append(test_acc)
-                col1, col2 = st.columns([1,1])
-                with col1:
-                    st.write(train_acc, test_acc)
-                with col2:
-                    acc = pd.DataFrame([{
-                        "train_acc":train_acc,
-                        "test_acc":test_acc
-                    }])
-                    st.line_chart(acc)
-                
+
+        col1, col2, col3 = st.columns([1,1,2])
+        with col1:
+            for i in train_acc_list:
+                st.write("train_acc : ", i)
+        with col2:
+            for j in test_acc_list:
+                st.write("test_acc : ", j)
+        with col3:
+            acc = pd.DataFrame({
+                "train_acc":train_acc_list,
+                "test_acc":test_acc_list
+            })
+
+            fig = px.line(acc, title="정확도")
+            st.plotly_chart(fig, theme=None)
+
+            fig = px.line(train_loss_list, title="train_loss")
+            st.plotly_chart(fig, theme=None)
