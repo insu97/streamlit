@@ -178,7 +178,7 @@ with tab2:
     # 데이터 학습
     if btn_network:
         x_train, y_train, x_test, y_test = data_load()
-        net = net = MultiLayerNetExtend(784, [100,100], 10, activation='relu', weight_init_std='relu', weight_decay_lambda=st.session_state.weight_decay_lambda,
+        net = net = MultiLayerNetExtend(784, [100], 10, activation='relu', weight_init_std='relu', weight_decay_lambda=st.session_state.weight_decay_lambda,
                                          use_dropout = False, dropout_ratio = st.session_state.dropout_ratio, use_batchnorm=st.session_state.BatchNorm)
         iters_num = 10000
         train_size = x_train.shape[0]
