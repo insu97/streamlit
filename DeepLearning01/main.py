@@ -149,6 +149,25 @@ with tab2:
 
             data_save(x_train, y_train, x_test, y_test) 
 
+    # 매개변수 갱신
+    if submit_optimizer:
+
+        if select_optimizer == None:
+            st.write("아직 optimizer를 선택하지 않았습니다!")
+        else: # 'SGD','Momentum','Nesterov','AdaGrad','RMSprop','Adam'
+            if select_optimizer == 'SGD':
+                st.session_state.optimizer = 'SGD'
+            elif select_optimizer == 'Momentum':
+                st.session_state.optimizer = 'Momentum'
+            elif select_optimizer == 'Nesterov':
+                st.session_state.optimizer = 'Nesterov'
+            elif select_optimizer == 'AdaGrad':
+                st.session_state.optimizer = 'AdaGrad'
+            elif select_optimizer == 'RMSprop':
+                st.session_state.optimizer = 'RMSprop'
+            elif select_optimizer == 'Adam':
+                st.session_state.optimizer = 'Adam'
+
     # 데이터 학습
     if btn_network:
         x_train, y_train, x_test, y_test = data_load()
@@ -164,24 +183,20 @@ with tab2:
 
         iter_per_epoch = max(train_size / batch_size, 1)
 
-        # 매개변수 갱신
-        if submit_optimizer:
+        optimizer = st.session_state.optimizer
 
-            if select_optimizer == None:
-                st.write("아직 optimizer를 선택하지 않았습니다!")
-            else: # 'SGD','Momentum','Nesterov','AdaGrad','RMSprop','Adam'
-                if select_optimizer == 'SGD':
-                    optimizer = SGD()
-                elif select_optimizer == 'Momentum':
-                    optimizer = Momentum()
-                elif select_optimizer == 'Nesterov':
-                    optimizer = Nesterov()
-                elif select_optimizer == 'AdaGrad':
-                    optimizer = AdaGrad()
-                elif select_optimizer == 'RMSprop':
-                    optimizer = RMSprop()
-                elif select_optimizer == 'Adam':
-                    optimizer = Adam()
+        if optimizer == 'SGD':
+            optimizer = SGD()
+        elif optimizer == 'Momentum':
+            optimizer = Momentum()
+        elif optimizer == 'Nesterov':
+            optimizer = Nesterov()
+        elif optimizer == 'AdaGrad':
+            optimizer = AdaGrad()
+        elif optimizer == 'RMSprop':
+            optimizer = RMSprop()
+        elif optimizer == 'Adam':
+            optimizer = Adam()
 
         for i in range(iters_num):
             batch_mask = np.random.choice(train_size, batch_size)
