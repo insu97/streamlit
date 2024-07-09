@@ -33,6 +33,16 @@ with st.sidebar:
 
     btn_network = st.button("network 생성 및 학습")
 
+    with st.form(key='w_d_lambda'):
+        choice_w_d_lambda = [0, 0.01, 0.001, 0.0001, 0.00001, 0.00001]
+        select_w_d_lambda= st.selectbox('weight_decay_lambda 선택', choice_w_d_lambda, placeholder="weight_decay_lambda를 선택해주세요", index=None)
+        submit_w_d_lambda = st.form_submit_button(label='Submit')
+    
+    dropout_ratio = st.slider('dropout_ratio', min_value=0, max_value=0.5, value=0.25)
+    st.session_state.dropout_ratio = dropout_ratio
+
+    BatchNorm = st.radio("use_batchnorm", [True, False])
+    st.session_state.BatchNorm = BatchNorm
 
 
 with tab1:
@@ -157,10 +167,20 @@ with tab2:
         else: # 'SGD','Momentum','Nesterov','AdaGrad','RMSprop','Adam'
             st.session_state.optimizer_ = select_optimizer
 
+    # 가중치 감소
+    if submit_w_d_lambda:
+        if submit_w_d_lambda == None:
+            st.write("아직 weight_decay_lambda를 선택하지 않았습니다!")
+        else:
+            st.session_state.weight_decay_lambda = select_w_d_lambda
+
+    # 드롭아웃 설정
+
     # 데이터 학습
     if btn_network:
         x_train, y_train, x_test, y_test = data_load()
-        net = MnistNet(input_size=784, hidden_size=50, output_size=10)
+        net = net = MultiLayerNetExtend(784, [100,100], 10, activation='relu', weight_init_std='relu', weight_decay_lambda=st.session_state.weight_decay_lambda,
+                                         use_dropout = False, dropout_ratio = st.session_state.dropout_ratio, use_batchnorm=st.session_state.BatchNorm)
         iters_num = 10000
         train_size = x_train.shape[0]
         batch_size = 100
