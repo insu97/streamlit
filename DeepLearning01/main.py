@@ -26,6 +26,11 @@ with st.sidebar:
     seed_value = st.slider('seed', min_value=1, max_value=100, value=42)
     np.random.seed(seed_value)
 
+    with st.form(key='optimizer'):
+        choice_optimizer = ['SGD','Momentum','Nesterov','AdaGrad','RMSprop','Adam']
+        select_optimizer = st.selectbox('optimizer 선택', choice_optimizer, placeholder="optimizer를 선택해주세요", index=None)
+        submit_optimizer = st.form_submit_button(label='Submit')
+
     btn_network = st.button("network 생성 및 학습")
 
 
@@ -144,6 +149,26 @@ with tab2:
 
             data_save(x_train, y_train, x_test, y_test)
     
+    # 매개변수 갱신
+    if submit_optimizer:
+
+        if select_optimizer == None:
+            st.write("아직 optimizer를 선택하지 않았습니다!")
+        else: # 'SGD','Momentum','Nesterov','AdaGrad','RMSprop','Adam'
+            if select_optimizer == 'SGD':
+                st.session_state.optimizer = SGD()
+            elif select_optimizer == 'Momentum':
+                st.session_state.optimizer = Momentum()
+            elif select_optimizer == 'Nesterov':
+                st.session_state.optimizer = Nesterov()
+            elif select_optimizer == 'AdaGrad':
+                st.session_state.optimizer = AdaGrad()
+            elif select_optimizer == 'RMSprop':
+                st.session_state.optimizer = RMSprop()
+            elif select_optimizer == 'Adam':
+                st.session_state.optimizer = Adam() 
+
+    # 데이터 학습
     if btn_network:
         x_train, y_train, x_test, y_test = data_load()
         net = MnistNet(input_size=784, hidden_size=50, output_size=10)
@@ -164,10 +189,11 @@ with tab2:
             y_batch = y_train[batch_mask]
 
             grad = net.gradient(x_batch, y_batch)
+            params = net.params
 
             # 갱신
-            for key in ('W1', 'b1', 'W2', 'b2'):
-                net.params[key] -= learning_rate * grad[key]
+            optimizer = st.session_state.optimizer
+            optimizer.update(params, grad)
 
             loss = net.loss(x_batch, y_batch)
             train_loss_list.append(loss)
