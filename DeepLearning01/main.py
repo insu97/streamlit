@@ -155,7 +155,7 @@ with tab2:
         if select_optimizer == None:
             st.write("아직 optimizer를 선택하지 않았습니다!")
         else: # 'SGD','Momentum','Nesterov','AdaGrad','RMSprop','Adam'
-            st.session_state.optimizer = select_optimizer
+            st.session_state.optimizer_ = select_optimizer
             # if select_optimizer == 'SGD':
             #     st.session_state.optimizer = 'SGD'
             # elif select_optimizer == 'Momentum':
