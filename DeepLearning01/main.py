@@ -147,26 +147,7 @@ with tab2:
             fig = px.histogram(x_train[0], title="scaler 후")
             st.plotly_chart(fig, theme=None)
 
-            data_save(x_train, y_train, x_test, y_test)
-    
-    # 매개변수 갱신
-    if submit_optimizer:
-
-        if select_optimizer == None:
-            st.write("아직 optimizer를 선택하지 않았습니다!")
-        else: # 'SGD','Momentum','Nesterov','AdaGrad','RMSprop','Adam'
-            if select_optimizer == 'SGD':
-                st.session_state.optimizer = SGD()
-            elif select_optimizer == 'Momentum':
-                st.session_state.optimizer = Momentum()
-            elif select_optimizer == 'Nesterov':
-                st.session_state.optimizer = Nesterov()
-            elif select_optimizer == 'AdaGrad':
-                st.session_state.optimizer = AdaGrad()
-            elif select_optimizer == 'RMSprop':
-                st.session_state.optimizer = RMSprop()
-            elif select_optimizer == 'Adam':
-                st.session_state.optimizer = Adam() 
+            data_save(x_train, y_train, x_test, y_test) 
 
     # 데이터 학습
     if btn_network:
@@ -183,6 +164,25 @@ with tab2:
 
         iter_per_epoch = max(train_size / batch_size, 1)
 
+        # 매개변수 갱신
+        if submit_optimizer:
+
+            if select_optimizer == None:
+                st.write("아직 optimizer를 선택하지 않았습니다!")
+            else: # 'SGD','Momentum','Nesterov','AdaGrad','RMSprop','Adam'
+                if select_optimizer == 'SGD':
+                    optimizer = SGD()
+                elif select_optimizer == 'Momentum':
+                    optimizer = Momentum()
+                elif select_optimizer == 'Nesterov':
+                    optimizer = Nesterov()
+                elif select_optimizer == 'AdaGrad':
+                    optimizer = AdaGrad()
+                elif select_optimizer == 'RMSprop':
+                    optimizer = RMSprop()
+                elif select_optimizer == 'Adam':
+                    optimizer = Adam()
+
         for i in range(iters_num):
             batch_mask = np.random.choice(train_size, batch_size)
             x_batch = x_train[batch_mask]
@@ -191,8 +191,6 @@ with tab2:
             grad = net.gradient(x_batch, y_batch)
             params = net.params
 
-            # 갱신
-            optimizer = st.session_state.optimizer
             optimizer.update(params, grad)
 
             loss = net.loss(x_batch, y_batch)
