@@ -38,7 +38,7 @@ with st.sidebar:
         select_w_d_lambda= st.selectbox('weight_decay_lambda 선택', choice_w_d_lambda, placeholder="weight_decay_lambda를 선택해주세요", index=None)
         submit_w_d_lambda = st.form_submit_button(label='Submit')
     
-    dropout_ratio = st.slider('dropout_ratio', min_value=0, max_value=0.5, value=0.25)
+    dropout_ratio = st.slider('dropout_ratio', min_value=0.0, max_value=0.5, value=0.25)
     st.session_state.dropout_ratio = dropout_ratio
 
     BatchNorm = st.radio("use_batchnorm", [True, False])
