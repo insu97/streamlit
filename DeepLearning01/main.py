@@ -184,7 +184,7 @@ with tab2:
 
         iter_per_epoch = max(train_size / batch_size, 1)
 
-        optimizer = st.session_state.optimizer
+        optimizer = st.session_state.optimizer_
 
         if optimizer == 'SGD':
             optimizer = SGD()
