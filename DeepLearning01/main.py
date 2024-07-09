@@ -31,8 +31,6 @@ with st.sidebar:
         select_optimizer = st.selectbox('optimizer 선택', choice_optimizer, placeholder="optimizer를 선택해주세요", index=None)
         submit_optimizer = st.form_submit_button(label='Submit')
 
-    btn_network = st.button("network 생성 및 학습")
-
     with st.form(key='w_d_lambda'):
         choice_w_d_lambda = [0, 0.01, 0.001, 0.0001, 0.00001, 0.00001]
         select_w_d_lambda= st.selectbox('weight_decay_lambda 선택', choice_w_d_lambda, placeholder="weight_decay_lambda를 선택해주세요", index=None)
@@ -44,6 +42,7 @@ with st.sidebar:
     BatchNorm = st.radio("use_batchnorm", [True, False])
     st.session_state.BatchNorm = BatchNorm
 
+    btn_network = st.button("network 생성 및 학습")
 
 with tab1:
     col1, col2 = st.columns([1,1])
