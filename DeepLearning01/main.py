@@ -155,18 +155,19 @@ with tab2:
         if select_optimizer == None:
             st.write("아직 optimizer를 선택하지 않았습니다!")
         else: # 'SGD','Momentum','Nesterov','AdaGrad','RMSprop','Adam'
-            if select_optimizer == 'SGD':
-                st.session_state.optimizer = 'SGD'
-            elif select_optimizer == 'Momentum':
-                st.session_state.optimizer = 'Momentum'
-            elif select_optimizer == 'Nesterov':
-                st.session_state.optimizer = 'Nesterov'
-            elif select_optimizer == 'AdaGrad':
-                st.session_state.optimizer = 'AdaGrad'
-            elif select_optimizer == 'RMSprop':
-                st.session_state.optimizer = 'RMSprop'
-            elif select_optimizer == 'Adam':
-                st.session_state.optimizer = 'Adam'
+            st.session_state.optimizer = select_optimizer
+            # if select_optimizer == 'SGD':
+            #     st.session_state.optimizer = 'SGD'
+            # elif select_optimizer == 'Momentum':
+            #     st.session_state.optimizer = 'Momentum'
+            # elif select_optimizer == 'Nesterov':
+            #     st.session_state.optimizer = 'Nesterov'
+            # elif select_optimizer == 'AdaGrad':
+            #     st.session_state.optimizer = 'AdaGrad'
+            # elif select_optimizer == 'RMSprop':
+            #     st.session_state.optimizer = 'RMSprop'
+            # elif select_optimizer == 'Adam':
+            #     st.session_state.optimizer = 'Adam'
 
     # 데이터 학습
     if btn_network:
