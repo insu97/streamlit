@@ -33,7 +33,7 @@ with st.sidebar:
 
     with st.form(key='w_d_lambda'):
         choice_w_d_lambda = [0, 0.01, 0.001, 0.0001, 0.00001, 0.00001]
-        select_w_d_lambda= st.selectbox('weight_decay_lambda 선택', choice_w_d_lambda, placeholder="weight_decay_lambda를 선택해주세요", index=None)
+        select_w_d_lambda= st.selectbox('lambda 선택', choice_w_d_lambda, placeholder="weight_decay_lambda를 선택해주세요", index=None)
         submit_w_d_lambda = st.form_submit_button(label='Submit')
     
     dropout_ratio = st.slider('dropout_ratio', min_value=0.0, max_value=0.5, value=0.25)
