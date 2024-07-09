@@ -32,7 +32,7 @@ with st.sidebar:
         submit_optimizer = st.form_submit_button(label='Submit')
 
     with st.form(key='w_d_lambda'):
-        choice_w_d_lambda = [0, 0.01, 0.001, 0.0001, 0.00001, 0.00001]
+        choice_w_d_lambda = [0, 0.01, 0.001, 0.0001, 0.00001]
         select_w_d_lambda= st.selectbox('lambda 선택', choice_w_d_lambda, placeholder="weight_decay_lambda를 선택해주세요", index=None)
         submit_w_d_lambda = st.form_submit_button(label='Submit')
     
