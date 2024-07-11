@@ -193,7 +193,7 @@ with col1:
         elif optimizer == 'Adam':
             optimizer = Adam()
 
-        for i in range(iters_num):
+        for i in stqdm(range(iters_num)):
             batch_mask = np.random.choice(train_size, batch_size)
             x_batch = x_train[batch_mask]
             y_batch = y_train[batch_mask]
