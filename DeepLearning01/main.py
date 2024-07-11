@@ -238,7 +238,7 @@ with col1:
 
     # 매개변수 최적화
     def __train(lr, weight_decay, epocs=50):
-        network = MultiLayerNetExtend(input_size=784, hidden_size_list=[100],
+        network = MultiLayerNetExtend(input_size=784, hidden_size_list=[100,100],
                                 output_size=10, weight_decay_lambda=weight_decay)
         trainer = Trainer(network, x_train, y_train, x_val, y_val,
                         epochs=epocs, mini_batch_size=100,
@@ -334,7 +334,7 @@ with col1:
         x_test = x_test[:300]
         y_test = y_test[:300]
 
-        network = MultiLayerNetExtend(input_size=784, hidden_size_list=[100],
+        network = MultiLayerNetExtend(input_size=784, hidden_size_list=[100,100],
                             output_size=10, weight_decay_lambda=weight_decay)
         trainer = Trainer(network, x_train, y_train, x_test, y_test,
                         epochs=50, mini_batch_size=100,
