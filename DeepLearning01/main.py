@@ -45,6 +45,8 @@ with st.sidebar:
     st.write("---")
     btn_hyperparameter = st.button("매개변수 최적화")
 
+    btn_h_run = st.button("최적화된 매개변수로 학습")
+
 col1, col2 = st.columns(2)
 
 def data_save_1(x_train, y_train, x_test, y_test):
@@ -291,7 +293,7 @@ with col1:
         fig.tight_layout(pad=3.0)
 
         for key, val_acc_list in sorted(results_val.items(), key=lambda x: x[1][-1], reverse=True):
-            st.write("Best-" + str(i+1) + "(val acc:" + str(val_acc_list[-1]) + ") | " + key)
+            # st.write("Best-" + str(i+1) + "(val acc:" + str(val_acc_list[-1]) + ") | " + key)
             ax = axs[i // col_num, i % col_num]
             ax.set_title("Best-" + str(i + 1))
             ax.set_ylim(0.0, 1.0)
@@ -302,6 +304,10 @@ with col1:
             ax.plot(x, val_acc_list, label='Validation')
             ax.plot(x, results_train[key], "--", label='Training')
             ax.legend()
+
+            if i == 0 :
+                st.session_state.best_parameters = key
+
             i += 1
 
             if i >= graph_draw_num:
@@ -312,6 +318,36 @@ with col1:
             fig.delaxes(axs[j // col_num, j % col_num])
 
         st.pyplot(fig)
+
+    if btn_h_run:
+        x_train, y_train, x_test, y_test, x_val, y_val = data_load_2()
+        lr = st.session_state.best_parameters.split(',')[0].split(':')[1]
+        weight_decay = st.session_state.best_parameters.split(',')[1].split(':')[1]
+
+        lr = float(lr)
+        weight_decay = float(weight_decay)
+
+        x_test, y_test = shuffle_dataset(x_test, y_test)
+
+        x_test = x_test[:300]
+        y_test = y_test[:300]
+
+        network = MultiLayerNetExtend(input_size=784, hidden_size_list=[100, 100, 100, 100, 100, 100],
+                            output_size=10, weight_decay_lambda=weight_decay)
+        trainer = Trainer(network, x_train, y_train, x_test, y_test,
+                        epochs=50, mini_batch_size=100,
+                        optimizer='sgd', optimizer_param={'lr': lr}, verbose=False)
+        trainer.train()
+
+        acc = pd.DataFrame({
+            "train_acc":trainer.train_acc_list,
+            "test_acc":trainer.test_acc_list
+        })
+
+        fig = px.line(acc, title="정확도")
+        st.plotly_chart(fig, theme=None)
+
+        data_save_2(x_train, y_train, x_test, y_test, x_val, y_val)
 
 with col2:
     st.write("Seed : ", seed_value)
