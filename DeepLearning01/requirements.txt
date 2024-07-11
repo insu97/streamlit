@@ -1,15 +1,8 @@
 streamlit
 numpy
 tensorflow==2.12.0
-# collections
 matplotlib
 plotly
 scikit-learn
 pandas
 stqdm
-# wrap
-# pyparsing
-# cycler
-# kiwisolver
-# joblib
-# threadpoolctl
