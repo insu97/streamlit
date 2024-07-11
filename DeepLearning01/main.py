@@ -8,6 +8,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import Normalizer
 from function import *
 import pandas as pd
+from stqdm import stqdm
 st.set_page_config(layout="wide")
 
 st.title("Deep-Learning-from-Scratch01")
@@ -253,7 +254,7 @@ with col1:
         optimization_trial = 20
         results_val = {}
         results_train = {}
-        for _ in range(optimization_trial):
+        for _ in stqdm(range(optimization_trial)):
             # 탐색한 하이퍼파라미터의 범위 지정===============
             weight_decay = 10 ** np.random.uniform(-8, -4)
             lr = 10 ** np.random.uniform(-6, -2)
@@ -319,6 +320,7 @@ with col1:
 
         st.pyplot(fig)
 
+    # 하이퍼 파라미터로 학습 후 평가
     if btn_h_run:
         x_train, y_train, x_test, y_test, x_val, y_val = data_load_2()
         lr = st.session_state.best_parameters.split(',')[0].split(':')[1]

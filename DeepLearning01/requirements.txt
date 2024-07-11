@@ -6,3 +6,10 @@ matplotlib
 plotly
 scikit-learn
 pandas
+stqdm
+# wrap
+# pyparsing
+# cycler
+# kiwisolver
+# joblib
+# threadpoolctl
