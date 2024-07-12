@@ -48,7 +48,11 @@ with st.sidebar:
 
     btn_h_run = st.button("최적화된 매개변수로 학습")
 
-col1, col2 = st.columns(2)
+    st.write("---")
+
+    btn_CNN = st.button("CNN 학습")
+
+col1, col2 = st.columns([3,1])
 
 def data_save_1(x_train, y_train, x_test, y_test):
     st.session_state.x_train = x_train
@@ -112,6 +116,11 @@ with col1:
         y_val = y_train[:validation_num]
         x_train = x_train[validation_num:]
         y_train = y_train[validation_num:]
+
+        x_test, y_test = shuffle_dataset(x_test, y_test)
+
+        x_test = x_test[:400]
+        y_test = y_test[:400]
 
         data_save_2(x_train, y_train, x_test, y_test, x_val, y_val)
 
@@ -273,23 +282,6 @@ with col1:
         row_num = int(np.ceil(graph_draw_num / col_num))
         i = 0
 
-        # for key, val_acc_list in sorted(results_val.items(), key=lambda x:x[1][-1], reverse=True):
-
-        #     plt.subplot(row_num, col_num, i+1)
-        #     plt.title("Best-" + str(i+1))
-        #     plt.ylim(0.0, 1.0)
-        #     if i % 5: plt.yticks([])
-        #     plt.xticks([])
-        #     x = np.arange(len(val_acc_list))
-        #     plt.plot(x, val_acc_list)
-        #     plt.plot(x, results_train[key], "--")
-        #     i += 1
-
-        #     if i >= graph_draw_num:
-        #         break
-
-        # plt.show()
-
         fig, axs = plt.subplots(row_num, col_num, figsize=(15, 10))
         fig.tight_layout(pad=3.0)
 
@@ -323,16 +315,12 @@ with col1:
     # 하이퍼 파라미터로 학습 후 평가
     if btn_h_run:
         x_train, y_train, x_test, y_test, x_val, y_val = data_load_2()
+
         lr = st.session_state.best_parameters.split(',')[0].split(':')[1]
         weight_decay = st.session_state.best_parameters.split(',')[1].split(':')[1]
 
         lr = float(lr)
         weight_decay = float(weight_decay)
-
-        x_test, y_test = shuffle_dataset(x_test, y_test)
-
-        x_test = x_test[:300]
-        y_test = y_test[:300]
 
         network = MultiLayerNetExtend(input_size=784, hidden_size_list=[100,100],
                             output_size=10, weight_decay_lambda=weight_decay)
@@ -349,7 +337,42 @@ with col1:
         fig = px.line(acc, title="정확도")
         st.plotly_chart(fig, theme=None)
 
-        data_save_2(x_train, y_train, x_test, y_test, x_val, y_val)
+    # CNN 학습
+    if btn_CNN:
+        mnist = keras.datasets.mnist
+        (x_train, y_train), (x_test, y_test) = mnist.load_data()
+        x_train = x_train.reshape((60000, 1, 28, 28))
+        x_test = x_test.reshape((10000, 1, 28, 28))
+
+        x_train, y_train = x_train[:1000], y_train[:1000]
+        x_test, y_test = x_test[:500], y_test[:500]
+
+        max_epochs = 20
+
+        network = SimpleConvNet(input_dim=(1,28,28),
+                                conv_param = {'filter_num': 30, 'filter_size': 5, 'pad': 0, 'stride': 1},
+                                hidden_size=100, output_size=10, weight_init_std=0.01)
+
+        trainer = Trainer(network, x_train, y_train, x_test, y_test,
+                        epochs=max_epochs, mini_batch_size=100,
+                        optimizer='Adam', optimizer_param={'lr': 0.001},
+                        evaluate_sample_num_per_epoch=1000)
+        trainer.train()
+
+        # Streamlit 애플리케이션
+        st.title("Training and Test Accuracy Over Epochs")
+
+        fig, ax = plt.subplots()
+        x = np.arange(max_epochs)
+        ax.plot(x, trainer.train_acc_list, marker='o', label='train', markevery=2)
+        ax.plot(x, trainer.test_acc_list, marker='s', label='test', markevery=2)
+        ax.set_xlabel("epochs")
+        ax.set_ylabel("accuracy")
+        ax.set_ylim(0, 1.0)
+        ax.legend(loc='lower right')
+
+        # Streamlit에서 Matplotlib 그래프를 표시
+        st.pyplot(fig)
 
 with col2:
     st.write("Seed : ", seed_value)
