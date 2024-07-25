@@ -4,5 +4,4 @@ pandas
 matplotlib
 stqdm
 scikit-learn
-time
 matplotlib
