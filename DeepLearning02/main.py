@@ -14,7 +14,7 @@ with ch02:
     col1, col2= st.columns([2,1])
 
     with col1:
-        text = st.text_input("text", "You say goodbye and I say hello.")
+        text = st.text_input("text_1", "You say goodbye and I say hello.")
 
         #---
         corpus, word_to_id, id_to_word = preprocess(text)
@@ -92,30 +92,85 @@ with ch02:
         st.write("---")
 
         st.markdown("## PTB dataset")
-        corpus, word_to_id, id_to_word = ptb.load_data('train')
-        st.write("말뭉치 크기 : ", len(corpus))
 
-        window_size = 2
-        wordvec_size = 100
+        if st.button("PTB 학습하기"):
+            
+            corpus, word_to_id, id_to_word = ptb.load_data('train')
+            st.write("말뭉치 크기 : ", len(corpus))
 
-        vocab_size = len(word_to_id)
-        C = create_co_matrix(corpus, vocab_size, window_size)
+            window_size = 2
+            wordvec_size = 100
 
-        st.write("PPMI 계산...")
-        W = ppmi(C)
+            vocab_size = len(word_to_id)
+            C = create_co_matrix(corpus, vocab_size, window_size)
 
-        st.write("SVD 계산...")
-        try:
-            from sklearn.utils.extmath import randomized_svd
-            U, S, V = randomized_svd(W, n_components=wordvec_size, n_iter=5, random_state=None)
-        except ImportError:
-            U, S, V = np.linalg.svd(W)
-        
-        word_vecs = U[:, :wordvec_size]
+            st.write("PPMI 계산...")
+            W = ppmi(C)
 
-        querys = ['you', 'year', 'car', 'toyota']
+            st.write("SVD 계산...")
+            try:
+                from sklearn.utils.extmath import randomized_svd
+                U, S, V = randomized_svd(W, n_components=wordvec_size, n_iter=5, random_state=None)
+            except ImportError:
+                U, S, V = np.linalg.svd(W)
+            
+            word_vecs = U[:, :wordvec_size]
 
-        for query in querys:
-            most_similar(query, word_to_id, id_to_word, word_vecs, top=5)
+            querys = ['you', 'year', 'car', 'toyota']
+
+            for query in querys:
+                most_similar(query, word_to_id, id_to_word, word_vecs, top=5)
 
     st.write('---')
+
+with ch03:
+    col1, col2= st.columns([2,1])
+
+    with col1:
+        text = st.text_input("text_2", "You say goodbye and I say hello.")
+
+        st.write('---')
+
+        corpus, word_to_id, id_to_word = preprocess(text)
+        contexts, target = create_contexts_target(corpus, window_size=1)
+
+        col1_1, col1_2, col1_3, col1_4 = st.columns([1,1,1,1])
+        
+        with col1_1:
+            st.write("contexts", contexts)
+        with col1_2:
+            st.write("target", target)
+        
+        vocab_size = len(word_to_id)
+        target = convert_one_hot(target, vocab_size)
+        contexts = convert_one_hot(contexts, vocab_size)
+
+        with col1_3:
+            st.write("contexts", contexts)
+        with col1_4:
+            st.write("target", target)
+
+        st.write('---')
+    
+    with col2:
+        st.markdown("## CBOW")
+        window_size = 1
+        hidden_size = 5
+        batch_size = 3
+        max_epoch = 1000
+
+        st.write("window_size : ", window_size)
+        st.write("hidden_size : ", hidden_size)
+        st.write("batch_size : ", batch_size)
+        st.write("max_epoch : ", max_epoch)
+
+        model = SimpleCBOW(vocab_size, hidden_size)
+        optimizer = Adam()
+        trainer = Trainer(model, optimizer)
+
+        trainer.fit(contexts, target, max_epoch, batch_size)
+        trainer.plot()
+
+        # word_vecs = model.word_vecs
+        # for word_id, word in id_to_word.items():
+        #     st.write(word, word_vecs[word_id])
