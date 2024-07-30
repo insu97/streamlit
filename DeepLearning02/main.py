@@ -133,11 +133,11 @@ with ch03:
         st.write('---')
 
         corpus, word_to_id, id_to_word = preprocess(text)
-        contexts, target = create_contexts_target(corpus, window_size=1)
 
         col1_1, col1_2, col1_3, col1_4 = st.columns([1,1,1,1])
         
         with col1_1:
+            contexts, target = create_contexts_target(corpus, window_size=1)
             st.write("contexts", contexts)
         with col1_2:
             st.write("target", target)
