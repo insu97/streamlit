@@ -9,6 +9,7 @@ import matplotlib.font_manager as fm
 
 def fontRegistered():
     if os.getcwd() != '/mount/src/streamlit':
+        st.write(1)
         font_dirs = [os.getcwd() + '/customFonts']
         font_files = fm.findSystemFonts(fontpaths=font_dirs)
 
@@ -16,6 +17,7 @@ def fontRegistered():
             fm.fontManager.addfont(font_file)
         fm._load_fontmanager(try_read_cache=False)
     elif os.getcwd() == '/mount/src/streamlit':
+        st.write(2)
         font_dirs = [os.getcwd() + '/DeepLearning02/customFonts']
         font_files = fm.findSystemFonts(fontpaths=font_dirs)
 
