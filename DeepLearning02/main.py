@@ -246,11 +246,11 @@ with ch04:
         # with open(pkl_file, 'wb') as f:
         #     pickle.dump(params, f, -1)
 
-        import os
-        entries = os.listdir()
+        # import os
+        # entries = os.listdir()
 
-        for entry in entries:
-            st.write(entry)
+        # for entry in entries:
+        #     st.write(entry)
 
         
         try:
@@ -263,7 +263,7 @@ with ch04:
                 word_to_id = params['word_to_id']
                 id_to_word = params['id_to_word']
         except:
-            pkl_file = 'streamlit/cbow_params.pkl'
+            pkl_file = 'DeepLearning02/cbow_params.pkl'
             # pkl_file = 'skipgram_params.pkl'
 
             with open(pkl_file, 'rb') as f:
