@@ -247,7 +247,7 @@ with ch04:
         #     pickle.dump(params, f, -1)
 
         import os
-        entries = os.listdir("..")
+        entries = os.listdir()
 
         for entry in entries:
             st.write(entry)
