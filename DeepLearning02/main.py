@@ -245,6 +245,13 @@ with ch04:
         # pkl_file = 'cbow_params.pkl'  # or 'skipgram_params.pkl'
         # with open(pkl_file, 'wb') as f:
         #     pickle.dump(params, f, -1)
+
+        import os
+        entries = os.listdir("..")
+
+        for entry in entries:
+            st.write(entry)
+
         
         try:
             pkl_file = 'cbow_params.pkl'
