@@ -6,13 +6,22 @@ import matplotlib.pyplot as plt
 import collections
 import os
 import matplotlib.font_manager as fm
-def fontRegistered():
-    font_dirs = [os.getcwd() + '/customFonts']
-    font_files = fm.findSystemFonts(fontpaths=font_dirs)
 
-    for font_file in font_files:
-        fm.fontManager.addfont(font_file)
-    fm._load_fontmanager(try_read_cache=False)
+def fontRegistered():
+    try:
+        font_dirs = [os.getcwd() + '/customFonts']
+        font_files = fm.findSystemFonts(fontpaths=font_dirs)
+
+        for font_file in font_files:
+            fm.fontManager.addfont(font_file)
+        fm._load_fontmanager(try_read_cache=False)
+    except:
+        font_dirs = ['DeepLearning02' + '/customFonts']
+        font_files = fm.findSystemFonts(fontpaths=font_dirs)
+
+        for font_file in font_files:
+            fm.fontManager.addfont(font_file)
+        fm._load_fontmanager(try_read_cache=False)
 
 def preprocess(text):
     text = text.lower()
