@@ -135,10 +135,10 @@ with ch03:
         corpus, word_to_id, id_to_word = preprocess(text)
         contexts, target = create_contexts_target(corpus, window_size=1)
 
-        col1_1, col1_2, col1_3, col1_4 = st.columns([1,1,1,1])
+        col1_1, col1_2, col1_3, col1_4 = st.columns([1,1,2,2])
         
         with col1_1:
-            st.write("contexts", contexts.tolist())
+            st.write("contexts", contexts)
         with col1_2:
             st.write("target", target)
         
@@ -147,7 +147,9 @@ with ch03:
         contexts = convert_one_hot(contexts, vocab_size)
 
         with col1_3:
-            st.write("contexts", contexts)
+            st.markdown("### contexts")
+            for i in range(len(contexts)):
+                st.write(contexts[i])
         with col1_4:
             st.write("target", target)
 
