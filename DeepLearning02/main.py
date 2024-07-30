@@ -245,6 +245,8 @@ with ch04:
         # pkl_file = 'cbow_params.pkl'  # or 'skipgram_params.pkl'
         # with open(pkl_file, 'wb') as f:
         #     pickle.dump(params, f, -1)
+        from pathlib import Path
+        st.text(Path.cwd())
 
         pkl_file = 'cbow_params.pkl'
         # pkl_file = 'skipgram_params.pkl'
