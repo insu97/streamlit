@@ -10,8 +10,7 @@ st.set_page_config(layout="wide")
 
 st.title("Deep-Learning-from-Scratch02")
 
-st.write(os.getcwd())
-if os.getcwd() == '':
+if os.getcwd() == '/mount/src/streamlit':
     font_path = 'DeepLearning02/NanumGothic.ttf'
     fontprop = fm.FontProperties(fname=font_path)
 else:
