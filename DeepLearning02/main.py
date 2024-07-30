@@ -12,8 +12,6 @@ ch02, ch03 , ch04, ch05 = st.tabs(['ch02', 'ch03', 'ch04', 'ch05'])
 
 with ch02:
 
-    st.set_page_config(layout="wide")
-
     col1, col2= st.columns([2,1])
 
     with col1:
