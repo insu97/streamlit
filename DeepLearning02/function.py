@@ -8,6 +8,9 @@ import os
 import matplotlib.font_manager as fm
 
 def fontRegistered():
+
+    st.write(os.getcwd())
+
     try:
         font_dirs = [os.getcwd() + '/customFonts']
         font_files = fm.findSystemFonts(fontpaths=font_dirs)
@@ -653,7 +656,7 @@ class RnnlmTrainer:
         loss_count = 0
 
         start_time = time.time()
-        for epoch in range(max_epoch):
+        for epoch in stqdm(range(max_epoch)):
             for iters in range(max_iters):
                 batch_x, batch_t = self.get_batch(xs, ts, batch_size, time_size)
 
