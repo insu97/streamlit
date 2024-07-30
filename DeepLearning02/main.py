@@ -5,9 +5,8 @@ import matplotlib.pyplot as plt
 import ptb
 import pickle
 
-fontRegistered()
-
 st.set_page_config(layout="wide")
+fontRegistered()
 st.title("Deep-Learning-from-Scratch02")
 
 ch02, ch03 , ch04, ch05 = st.tabs(['ch02', 'ch03', 'ch04', 'ch05'])
