@@ -7,10 +7,10 @@ import collections
 
 import matplotlib.font_manager as fm
 
-try:
+if os.getcwd() == '/mount/src/streamlit':
     font_path = 'DeepLearning02/NanumGothic.ttf'
     fontprop = fm.FontProperties(fname=font_path)
-except:
+else:
     font_path = 'NanumGothic.ttf'
     fontprop = fm.FontProperties(fname=font_path)
 
