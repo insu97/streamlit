@@ -5,9 +5,29 @@ import matplotlib.pyplot as plt
 import ptb
 import pickle
 
+import matplotlib.font_manager as fm
+@st.cache_data
+def fontRegistered():
+    if os.getcwd() != '/mount/src/streamlit':
+        st.write(1)
+        font_dirs = [os.getcwd() + '/customFonts']
+        font_files = fm.findSystemFonts(fontpaths=font_dirs)
+
+        for font_file in font_files:
+            fm.fontManager.addfont(font_file)
+        fm._load_fontmanager(try_read_cache=False)
+    elif os.getcwd() == '/mount/src/streamlit':
+        st.write(2)
+        font_dirs = [os.getcwd() + '/DeepLearning02/customFonts']
+        font_files = fm.findSystemFonts(fontpaths=font_dirs)
+
+        for font_file in font_files:
+            fm.fontManager.addfont(font_file)
+        fm._load_fontmanager(try_read_cache=False)
+
 fontRegistered()
 
-# st.set_page_config(layout="wide")
+st.set_page_config(layout="wide")
 st.title("Deep-Learning-from-Scratch02")
 
 ch02, ch03 , ch04, ch05 = st.tabs(['ch02', 'ch03', 'ch04', 'ch05'])
