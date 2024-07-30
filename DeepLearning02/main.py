@@ -2,16 +2,23 @@ import streamlit as st
 from function import *
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
 import ptb
 import pickle
-
-import matplotlib.font_manager as fm
-font_path = '/mount/src/streamlit/mount/src/streamlit/NanumGothic.ttf'
-fontprop = fm.FontProperties(fname=font_path, size=12)
-plt.rc('font', family='NanumGothic') 
-
+import os
 st.set_page_config(layout="wide")
+
 st.title("Deep-Learning-from-Scratch02")
+
+st.write(os.getcwd())
+if os.getcwd() == '':
+    font_path = 'DeepLearning02/NanumGothic.ttf'
+    fontprop = fm.FontProperties(fname=font_path)
+else:
+    font_path = 'NanumGothic.ttf'
+    fontprop = fm.FontProperties(fname=font_path)
+
+
 
 ch02, ch03 , ch04, ch05 = st.tabs(['ch02', 'ch03', 'ch04', 'ch05'])
 

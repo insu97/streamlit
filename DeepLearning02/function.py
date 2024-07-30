@@ -4,7 +4,15 @@ from stqdm import stqdm
 import time
 import matplotlib.pyplot as plt
 import collections
-import os
+
+import matplotlib.font_manager as fm
+
+try:
+    font_path = 'DeepLearning02/NanumGothic.ttf'
+    fontprop = fm.FontProperties(fname=font_path)
+except:
+    font_path = 'NanumGothic.ttf'
+    fontprop = fm.FontProperties(fname=font_path)
 
 def preprocess(text):
     text = text.lower()
@@ -667,8 +675,8 @@ class RnnlmTrainer:
         if ylim is not None:
             plt.ylim(*ylim)
         plt.plot(x, self.ppl_list, label='train')
-        plt.xlabel('반복 (x' + str(self.eval_interval) + ')')
-        plt.ylabel('퍼플렉서티')
+        plt.xlabel('반복 (x' + str(self.eval_interval) + ')', fontproperties=fontprop)
+        plt.ylabel('퍼플렉서티', fontproperties=fontprop)
         st.pyplot(plt)
 
 class SimpleRnnlm:
