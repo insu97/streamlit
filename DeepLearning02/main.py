@@ -271,6 +271,7 @@ with ch04:
                 word_vecs = params['word_vecs']
                 word_to_id = params['word_to_id']
                 id_to_word = params['id_to_word']
+
         # 가장 비슷한(most similar) 단어 뽑기
         querys = ['you', 'year', 'car', 'toyota']
         # for query in querys:
@@ -291,8 +292,17 @@ with ch04:
             st.write('---')
 
     with col1:
+        st.markdown("## PTB DATA 유추문제")
         # 유추(analogy) 작업
-        analogy('king', 'man', 'queen',  word_to_id, id_to_word, word_vecs)
-        analogy('take', 'took', 'go',  word_to_id, id_to_word, word_vecs)
-        analogy('car', 'cars', 'child',  word_to_id, id_to_word, word_vecs)
-        analogy('good', 'better', 'bad',  word_to_id, id_to_word, word_vecs)
+        col1_1, col1_2, col1_3, col1_4 = st.columns([1,1,1,1])
+
+        with col1_1:
+            analogy('king', 'man', 'queen',  word_to_id, id_to_word, word_vecs)
+        with col1_2:
+            analogy('take', 'took', 'go',  word_to_id, id_to_word, word_vecs)
+        with col1_3:
+            analogy('car', 'cars', 'child',  word_to_id, id_to_word, word_vecs)
+        with col1_4:
+            analogy('good', 'better', 'bad',  word_to_id, id_to_word, word_vecs)
+
+    st.write('---')
