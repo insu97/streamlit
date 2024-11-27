@@ -34,7 +34,7 @@ if st.button("검색 시작하기"):
 
         # ChromeDriver 실행
         from selenium.webdriver.chrome.service import Service as ChromeService
-        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        driver = webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
         driver.maximize_window()
         driver.get(url)
 
