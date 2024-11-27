@@ -1,4 +1,5 @@
 import time
+import os
 import streamlit as st
 # seleniumbase
 from selenium import webdriver
@@ -15,10 +16,16 @@ from webdriver_manager.firefox import GeckoDriverManager
 # Chrome 설정
 def get_chrome_driver():
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  # Headless 모드
-    chrome_options.add_argument("--no-sandbox")  # 클라우드 환경에서 권장
-    chrome_options.add_argument("--disable-dev-shm-usage")  # 메모리 제한 해결
-    service = Service(ChromeDriverManager().install())
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+
+    # webdriver-manager 경로를 명시적으로 설정
+    chromedriver_path = "/home/appuser/.wdm/drivers/chromedriver/linux64/114.0.5735.90/chromedriver"
+    if not os.path.exists(chromedriver_path):
+        raise FileNotFoundError(f"Chromedriver 경로를 찾을 수 없습니다: {chromedriver_path}")
+
+    service = Service(chromedriver_path)
     return webdriver.Chrome(service=service, options=chrome_options)
 
 
