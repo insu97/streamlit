@@ -17,14 +17,14 @@ from webdriver_manager.firefox import GeckoDriverManager
 def get_driver():
     try:
         chrome_options = Options()
-        # chrome_options.add_argument("--headless")  # Run Chrome in headless mode
+        chrome_options.add_argument("--headless")  # Run Chrome in headless mode
         service = Service(ChromeDriverManager().install())
         return webdriver.Chrome(service=service, options=chrome_options)
     except Exception as e:
         st.write(f"Chrome initialization failed: {e}")
         try:
             firefoxOptions = Options()
-            # firefoxOptions.add_argument("--headless")
+            firefoxOptions.add_argument("--headless")
             service = Service(GeckoDriverManager().install())
             return webdriver.Firefox(options=firefoxOptions, service=service)
         except Exception as e:
