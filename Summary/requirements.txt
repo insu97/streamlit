@@ -1,5 +1,5 @@
-streamlit
 selenium
+streamlit
 webdriver-manager
 
 beautifulsoup4
