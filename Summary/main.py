@@ -30,7 +30,7 @@ if st.button("검색 시작하기"):
         st.error("보고 싶은 기사의 수를 입력해 주세요!")
     else:
         # 크롤링 시작
-        url = 'https://sports.chosun.com/football/?action=worldfootball'
+        url = "https://sports.chosun.com/football/?action=worldfootball"
 
         # ChromeDriver 실행
         from selenium import webdriver
