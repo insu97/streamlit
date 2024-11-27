@@ -1,6 +1,5 @@
 selenium
 streamlit
 webdriver-manager
-
 beautifulsoup4
 sumy
