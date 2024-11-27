@@ -11,40 +11,15 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.service import Service
 from webdriver_manager.firefox import GeckoDriverManager
 
-import subprocess
 
-if st.button("Xvfb 설치 실행"):
-    try:
-        # apt-get 명령 실행
-        result = subprocess.run(["sudo", "apt-get", "install", "-y", "xvfb"],
-                                text=True, capture_output=True)
-
-        # 결과 출력
-        if result.returncode == 0:
-            st.success("Xvfb가 성공적으로 설치되었습니다!")
-        else:
-            st.error(f"설치 실패: {result.stderr}")
-    except Exception as e:
-        st.error(f"오류 발생: {e}")
-
-
-def get_driver():
-    try:
-        chrome_options = Options()
-        chrome_options.add_argument("--headless")  # Run Chrome in headless mode
-        service = Service(ChromeDriverManager().install())
-        return webdriver.Chrome(service=service, options=chrome_options)
-    except Exception as e:
-        st.write(f"Chrome initialization failed: {e}")
-        try:
-            firefoxOptions = Options()
-            firefoxOptions.add_argument("--headless")
-            service = Service(GeckoDriverManager().install())
-            return webdriver.Firefox(options=firefoxOptions, service=service)
-        except Exception as e:
-            print(f"Firefox initialization failed: {e}")
-            st.error("Unable to initialize a browser driver.")
-            return None
+# Chrome 설정
+def get_chrome_driver():
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")  # Headless 모드
+    chrome_options.add_argument("--no-sandbox")  # 클라우드 환경에서 권장
+    chrome_options.add_argument("--disable-dev-shm-usage")  # 메모리 제한 해결
+    service = Service(ChromeDriverManager().install())
+    return webdriver.Chrome(service=service, options=chrome_options)
 
 
 url = "https://sports.chosun.com/football/?action=worldfootball"
@@ -59,7 +34,7 @@ if st.button("검색 시작"):
     if not key_word:
         st.error("키워드를 입력해주세요!!")
     else:
-        driver = get_driver()
+        driver = get_chrome_driver()
         driver.get(url)
         driver.quit()
 
