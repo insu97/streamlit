@@ -7,15 +7,21 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.service import Service
+from webdriver_manager.firefox import GeckoDriverManager
+
+
+
 
 def get_driver():
     try:
         return webdriver.Chrome()
     except:
-        options = Options()
-        # options.add_argument('--headless')
-        # options.add_argument('--disable-gpu')
-        return Driver(browser="chrome", headless=True, disable_gpu=True)
+        firefoxOptions = Options()
+        firefoxOptions.add_argument("--headless")
+        service = Service(GeckoDriverManager().install())
+        return webdriver.Firefox(options=firefoxOptions, service=service)
 
 
 url = "https://sports.chosun.com/football/?action=worldfootball"
