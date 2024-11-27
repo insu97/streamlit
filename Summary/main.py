@@ -2,7 +2,7 @@ import time
 import streamlit as st
 # seleniumbase
 from selenium import webdriver
-
+from seleniumbase import Driver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
@@ -12,7 +12,7 @@ def get_driver():
     try:
         return webdriver.Chrome()
     except:
-        return webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        return Driver(browser="chrome")
 
 
 # options = Options()
