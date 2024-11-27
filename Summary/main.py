@@ -13,6 +13,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.core.os_manager import ChromeType
+import subprocess
+cmd = 'pip install --upgrade chromedriver_binary'
+res = subprocess.call(cmd, shell=True)
 
 with st.echo():
     @st.cache_resource
