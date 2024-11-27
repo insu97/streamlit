@@ -37,7 +37,7 @@ if st.button("검색 시작하기"):
         url = 'https://sports.chosun.com/football/?action=worldfootball'
 
         # ChromeDriver 실행
-        driver = webdriver.Chrome(options=options)
+        driver = webdriver.Chrome(executable_path="/chromedriver", options=options)
         driver.maximize_window()
         driver.get(url)
 
