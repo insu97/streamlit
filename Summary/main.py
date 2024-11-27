@@ -28,7 +28,7 @@ with st.echo():
     options.add_argument("--headless")
 
     # streamlit 설정
-    st.set_page_config(layout="wide")
+    # st.set_page_config(layout="wide")
 
     # streamlit
     st.title('해외축구 뉴스 요약')
