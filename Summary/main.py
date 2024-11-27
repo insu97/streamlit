@@ -1,14 +1,22 @@
 import time
+import os, sys
 import streamlit as st
 
 from selenium import webdriver
+from selenium.webdriver import FirefoxOptions
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
 @st.cache_resource
-def get_driver():
-    return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+def installff():
+  os.system('sbase install geckodriver')
+  os.system('ln -s /home/appuser/venv/lib/python3.7/site-packages/seleniumbase/drivers/geckodriver /home/appuser/venv/bin/geckodriver')
+
+_ = installff()
+
+opts = FirefoxOptions()
+opts.add_argument("--headless")
 
 options = Options()
 options.add_argument('--disable-gpu')
@@ -26,7 +34,7 @@ if st.button("검색 시작"):
     if not key_word:
         st.error("키워드를 입력해주세요!!")
     else:
-        driver = get_driver()
+        driver = webdriver.Firefox(options=opts)
         driver.maximize_window()
         driver.get(url)
         driver.quit()
