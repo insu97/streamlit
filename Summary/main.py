@@ -12,8 +12,27 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
+import os
+
 # streamlit 설정
 st.set_page_config(layout="wide")
+
+# 파일 경로 설정
+file_path = 'google-chrome-stable_114.0.5735.90-1_amd64.deb'
+
+# 파일이 존재하는지 확인
+if os.path.exists(file_path):
+    # 다운로드 버튼 생성
+    with open(file_path, 'rb') as f:
+        st.download_button(
+            label="Download Google Chrome 114",
+            data=f,
+            file_name="google-chrome-stable_114.0.5735.90-1_amd64.deb",
+            mime="application/octet-stream"
+        )
+else:
+    st.error("파일이 존재하지 않습니다.")
 
 # streamlit
 st.title('해외축구 뉴스 요약')
