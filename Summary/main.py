@@ -14,6 +14,11 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.core.os_manager import ChromeType
 
+service = Service("/home/appuser/.wdm/drivers/chromedriver/linux64/114.0.5735.90/chromedriver")
+options = Options()
+options.add_argument("--headless")
+
+
 # streamlit 설정
 # st.set_page_config(layout="wide")
 
@@ -33,14 +38,7 @@ if st.button("검색 시작하기"):
         url = "https://sports.chosun.com/football/?action=worldfootball"
 
         # ChromeDriver 실행
-        from selenium.webdriver.chrome.service import Service as ChromeService
-        from selenium import webdriver
-        from selenium.webdriver.chrome.service import Service as ChromiumService
-        from webdriver_manager.chrome import ChromeDriverManager
-        from webdriver_manager.core.os_manager import ChromeType
-
-        driver = webdriver.Chrome(
-            service=ChromiumService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()))
+        driver = webdriver.Chrome(service=service, options=options)
         driver.maximize_window()
         driver.get(url)
 
