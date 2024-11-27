@@ -33,7 +33,8 @@ if st.button("검색 시작하기"):
         url = "https://sports.chosun.com/football/?action=worldfootball"
 
         # ChromeDriver 실행
-        driver = webdriver.Chrome(ChromeDriverManager().install())
+        from selenium.webdriver.chrome.service import Service as ChromeService
+        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
         driver.maximize_window()
         driver.get(url)
 
