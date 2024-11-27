@@ -3,3 +3,4 @@ streamlit
 webdriver-manager
 beautifulsoup4
 sumy
+playwright
