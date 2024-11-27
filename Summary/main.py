@@ -12,12 +12,11 @@ def get_driver():
     try:
         return webdriver.Chrome()
     except:
-        return Driver(browser="chrome")
+        options = Options()
+        # options.add_argument('--headless')
+        # options.add_argument('--disable-gpu')
+        return Driver(browser="chrome", headless=True, disable_gpu=True)
 
-
-# options = Options()
-# options.add_argument('--disable-gpu')
-# options.add_argument('--headless')
 
 url = "https://sports.chosun.com/football/?action=worldfootball"
 
