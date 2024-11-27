@@ -4,5 +4,3 @@ webdriver-manager
 
 beautifulsoup4
 sumy
-seleniumbase
-webdriver-manager

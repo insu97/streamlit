@@ -1,5 +1,4 @@
 import time
-import os, sys
 import streamlit as st
 
 from selenium import webdriver
@@ -15,8 +14,6 @@ def get_driver():
 options = Options()
 options.add_argument('--disable-gpu')
 options.add_argument('--headless')
-driver = get_driver()
-driver.maximize_window()
 
 url = "https://sports.chosun.com/football/?action=worldfootball"
 
@@ -30,6 +27,8 @@ if st.button("검색 시작"):
     if not key_word:
         st.error("키워드를 입력해주세요!!")
     else:
+        driver = get_driver()
+        driver.maximize_window()
         driver.get(url)
         driver.quit()
 
