@@ -1,6 +1,6 @@
-selenium
 streamlit
-
+seleniumbase
+webdriver-manager
 
 beautifulsoup4
 sumy

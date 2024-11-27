@@ -1,5 +1,18 @@
+import time
 import streamlit as st
+
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
+@st.cache_resource
+def get_driver():
+    return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+
+options = Options()
+options.add_argument('--disable-gpu')
+options.add_argument('--headless')
 
 url = "https://sports.chosun.com/football/?action=worldfootball"
 
@@ -13,7 +26,8 @@ if st.button("검색 시작"):
     if not key_word:
         st.error("키워드를 입력해주세요!!")
     else:
-        driver = webdriver.Chrome('chromedriver')
+        driver = get_driver()
+        driver.maximize_window()
         driver.get(url)
         driver.quit()
 
