@@ -4,7 +4,6 @@ from selenium import webdriver
 from urllib.request import Request, urlopen
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from gensim.summarization import summarize
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
@@ -63,7 +62,6 @@ if st.button("검색 시작하기"):
 
             title = bs_obj.find('h1', {'class': 'article-title'}).text
             article = bs_obj.find('div', {'class': 'article-Box'}).text
-            article_summarized = summarize(article, ratio=1)
 
             parser = PlaintextParser.from_string(article, Tokenizer("korean"))
             summarizer = LsaSummarizer()

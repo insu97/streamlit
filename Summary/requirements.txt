@@ -1,6 +1,3 @@
-streamlit==1.15.0
-altair==4.2.2
 beautifulsoup4
 selenium
-gensim==3.7.0
 sumy
