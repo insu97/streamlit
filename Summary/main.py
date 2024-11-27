@@ -13,7 +13,7 @@ if st.button("검색 시작"):
     if not key_word:
         st.error("키워드를 입력해주세요!!")
     else:
-        driver = webdriver.Chrome('/chromedriver.exe')
+        driver = webdriver.Chrome('/chromedriver')
         driver.get(url)
         driver.quit()
 
