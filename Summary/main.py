@@ -7,6 +7,8 @@ from selenium.webdriver.common.keys import Keys
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
 # streamlit 설정
 st.set_page_config(layout="wide")
@@ -22,10 +24,9 @@ if st.button("검색 시작하기"):
     # 크롤링 시작
     url = 'https://sports.chosun.com/football/?action=worldfootball'
     options = webdriver.ChromeOptions()
-    # options.add_argument("--disable-javascript")
     options.add_argument("--headless")  # 헤드리스 모드
-
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    
     driver.maximize_window()
     driver.get(url)
     driver.implicitly_wait(20)
