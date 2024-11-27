@@ -13,7 +13,11 @@ if st.button("검색 시작"):
     if not key_word:
         st.error("키워드를 입력해주세요!!")
     else:
-        driver = webdriver.Chrome()
+        options = webdriver.ChromeOptions()
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+        driver = webdriver.Chrome(options=options)
         driver.get(url)
         driver.quit()
 
