@@ -1,4 +1,6 @@
 beautifulsoup4
 selenium
 sumy
-webdriver_manager
+streamlit
+seleniumbase
+webdriver-manager
