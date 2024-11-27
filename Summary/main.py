@@ -46,6 +46,7 @@ if st.button("검색 시작"):
         st.error("키워드를 입력해주세요!!")
     else:
         driver = get_driver()
+        st.write(driver)
         driver.get(url)
         driver.quit()
 
