@@ -11,7 +11,21 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.service import Service
 from webdriver_manager.firefox import GeckoDriverManager
 
+import subprocess
 
+if st.button("Xvfb 설치 실행"):
+    try:
+        # apt-get 명령 실행
+        result = subprocess.run(["sudo", "apt-get", "install", "-y", "xvfb"],
+                                text=True, capture_output=True)
+
+        # 결과 출력
+        if result.returncode == 0:
+            st.success("Xvfb가 성공적으로 설치되었습니다!")
+        else:
+            st.error(f"설치 실패: {result.stderr}")
+    except Exception as e:
+        st.error(f"오류 발생: {e}")
 
 
 def get_driver():
