@@ -23,7 +23,7 @@ if st.button("검색 시작하기"):
     url = 'https://sports.chosun.com/football/?action=worldfootball'
     options = webdriver.ChromeOptions()
     # options.add_argument("--disable-javascript")
-    # options.add_argument("--headless")  # 헤드리스 모드
+    options.add_argument("--headless")  # 헤드리스 모드
 
     driver = webdriver.Chrome(options=options)
     driver.maximize_window()
