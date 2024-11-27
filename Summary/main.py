@@ -12,6 +12,18 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.service import Service
 from webdriver_manager.firefox import GeckoDriverManager
 
+def install_dependencies():
+    st.write("시스템 의존성 설치 중...")
+    os.system("sudo apt-get update")
+    os.system("sudo apt-get install -y libglib2.0-0 libnss3 libgconf-2-4")
+    st.write("설치 완료!")
+
+if st.button("의존성 설치"):
+    try:
+        install_dependencies()
+    except Exception as e:
+        st.error(f"설치 중 오류 발생: {e}")
+
 
 # Chrome 설정
 def get_chrome_driver():
