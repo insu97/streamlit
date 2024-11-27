@@ -31,6 +31,7 @@ if st.button("검색 시작하기"):
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")  # Docker 환경에서 유용
+    options.add_argument("--remote-allow-origins=*")
 
     # ChromeDriver 실행
     service = Service(ChromeDriverManager().install())
