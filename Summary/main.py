@@ -1,19 +1,23 @@
 import time
 import streamlit as st
-
+# seleniumbase
 from selenium import webdriver
 
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
-@st.cache_resource
-def get_driver():
-    return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
-options = Options()
-options.add_argument('--disable-gpu')
-options.add_argument('--headless')
+def get_driver():
+    try:
+        return webdriver.Chrome()
+    except:
+        return webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+
+
+# options = Options()
+# options.add_argument('--disable-gpu')
+# options.add_argument('--headless')
 
 url = "https://sports.chosun.com/football/?action=worldfootball"
 
