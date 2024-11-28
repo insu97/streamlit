@@ -7,6 +7,7 @@ from selenium.webdriver.common.keys import Keys
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
+from selenium.webdriver.chrome.options import Options
 
 # streamlit 설정
 st.set_page_config(layout="wide")
@@ -21,22 +22,20 @@ view_count = st.text_input("보고싶은 기사의 수를 입력하세요!")
 if st.button("검색 시작하기"):
     # 크롤링 시작
     url = 'https://sports.chosun.com/football/?action=worldfootball'
-    options = webdriver.ChromeOptions()
-    # Chrome 옵션 설정
-    options.add_argument("--headless")  # 헤드리스 모드
-    options.add_argument("--disable-gpu")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")  # Docker 환경에서 유용
-    options.add_argument("--enable-unsafe-swiftshader")
+    options = Options()
+    options.add_argument('--no-sandbox')
+    options.add_argument('--headless')
+    options.add_argument('--disable-dev-shm-usage')
+
+    options.add_argument("start-maximized");
+    options.add_argument("disable-infobars");
+    options.add_argument("--disable-extensions");
+    options.add_argument("--disable-gpu");
+    options.add_argument("--disable-dev-shm-usage");
 
     # ChromeDriver 실행
-    try:
-        driver = webdriver.Chrome(options=options)
-    except:
-        from selenium.webdriver.chrome.service import Service
-        # service = Service('/home/appuser/.cache/selenium/chromedriver/linux64/131.0.6778.85/chromedriver')
-        driver = webdriver.Safari(options=options)
-    driver.maximize_window()
+    driver = webdriver.Chrome(options=options)
+    # driver.maximize_window()
     driver.get(url)
     driver.implicitly_wait(20)
 
