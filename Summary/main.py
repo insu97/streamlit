@@ -32,16 +32,8 @@ if st.button("검색 시작하기"):
     options.add_argument("--disable-dev-shm-usage")  # Docker 환경에서 유용
 
     # ChromeDriver 실행
-    # service = Service(ChromeDriverManager().install())
-    # driver = webdriver.Chrome(options=options)
-    GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome"
-    CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
-
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.binary_location = GOOGLE_CHROME_BIN
-    chrome_options.add_argument('--disable-gpu')
-    chrome_options.add_argument('--no-sandbox')
-    driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(options=options)
     driver.maximize_window()
     driver.get(url)
     driver.implicitly_wait(20)
