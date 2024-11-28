@@ -35,7 +35,14 @@ if st.button("검색 시작하기"):
     # ChromeDriver 실행
     # service = Service(ChromeDriverManager().install())
     # driver = webdriver.Chrome(options=options)
-    driver = webdriver.PhantomJS()
+    GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome"
+    CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
+
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.binary_location = GOOGLE_CHROME_BIN
+    chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_argument('--no-sandbox')
+    driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
     driver.maximize_window()
     driver.get(url)
     driver.implicitly_wait(20)
