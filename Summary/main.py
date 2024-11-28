@@ -7,9 +7,6 @@ from selenium.webdriver.common.keys import Keys
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 # streamlit 설정
 st.set_page_config(layout="wide")
@@ -30,6 +27,7 @@ if st.button("검색 시작하기"):
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")  # Docker 환경에서 유용
+    options.add_argument("--enable-unsafe-swiftshader")
 
     # ChromeDriver 실행
     driver = webdriver.Chrome(options=options)
@@ -53,7 +51,7 @@ if st.button("검색 시작하기"):
         for i in range(1, view_count + 1):
             if i == 1:
                 driver.find_element(By.XPATH,
-                                    '/html/body/div[4]/div[1]/div/div[2]/div[1]/div[2]/div/div/div/a').send_keys(
+                                    "/html/body/div[4]/div[1]/div/div[2]/div[1]/div[2]/div/div/div/a").send_keys(
                     Keys.CONTROL + Keys.ENTER)
                 driver.implicitly_wait(20)
             else:
@@ -63,6 +61,7 @@ if st.button("검색 시작하기"):
                 driver.implicitly_wait(20)
 
             driver.switch_to.window(driver.window_handles[-1])
+
             info_url = driver.current_url  # 현재 URL
             info_req = Request(info_url, headers={'User-Agent': 'Mozilla/5.0'})
             info_html = urlopen(info_req).read()
@@ -70,6 +69,12 @@ if st.button("검색 시작하기"):
 
             title = bs_obj.find('h1', {'class': 'article-title'}).text
             article = bs_obj.find('div', {'class': 'article-Box'}).text
+
+            # 마침표 기준으로 텍스트를 분리하고, 각 문장을 새로운 줄에 넣기
+            text_lines = article.split('.')
+
+            # 각 문장 뒤에 마침표를 추가하고 줄바꿈 처리
+            article = '\n'.join([line.strip() + '.' for line in text_lines if line.strip()])
 
             parser = PlaintextParser.from_string(article, Tokenizer("korean"))
             summarizer = LsaSummarizer()
