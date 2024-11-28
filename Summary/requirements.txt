@@ -1,6 +1,6 @@
-streamlit
-selenium
 sumy
 streamlit
 seleniumbase
 webdriver-manager
+selenium==3.141.0
+streamlit==0.79.0
