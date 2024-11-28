@@ -1,26 +1,39 @@
 import streamlit as st
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.core.os_manager import ChromeType
 
-@st.cache_resource
-def get_driver():
-    return webdriver.Chrome(
-        service=Service(
-            ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
-        ),
-        options=options,
-    )
+"""
+## Web scraping on Streamlit Cloud with Selenium
 
-url = 'https://sports.chosun.com/football/?action=worldfootball'
+[![Source](https://img.shields.io/badge/View-Source-<COLOR>.svg)](https://github.com/snehankekre/streamlit-selenium-chrome/)
 
-options = Options()
-options.add_argument("--disable-gpu")
-options.add_argument("--headless")
+This is a minimal, reproducible example of how to scrape the web with Selenium and Chrome on Streamlit's Community Cloud.
 
-driver = get_driver()
-driver.get(url)
+Fork this repo, and edit `/streamlit_app.py` to customize this app to your heart's desire. :heart:
+"""
 
-st.code(driver.page_source)
+with st.echo():
+    from selenium import webdriver
+    from selenium.webdriver.chrome.options import Options
+    from selenium.webdriver.chrome.service import Service
+    from webdriver_manager.chrome import ChromeDriverManager
+    from webdriver_manager.core.os_manager import ChromeType
+
+    @st.cache_resource
+    def get_driver():
+        return webdriver.Chrome(
+            service=Service(
+                ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
+            ),
+            options=options,
+        )
+
+
+    url = 'https://sports.chosun.com/football/?action=worldfootball'
+
+    options = Options()
+    options.add_argument("--disable-gpu")
+    options.add_argument("--headless")
+
+    driver = get_driver()
+    driver.get(url)
+
+    st.code(driver.page_source)
