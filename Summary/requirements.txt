@@ -4,3 +4,4 @@ sumy
 streamlit
 chromium
 undetected_chromedriver
+distutils
