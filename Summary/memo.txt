@@ -1,3 +1,10 @@
+streamlit
+webdriver-manager
+beautifulsoup4
+sumy
+playwright
+seleniumbase
+
 import streamlit as st
 from bs4 import BeautifulSoup
 from selenium import webdriver
