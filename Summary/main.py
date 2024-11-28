@@ -34,7 +34,11 @@ if st.button("검색 시작하기"):
     options.add_argument("--disable-dev-shm-usage");
 
     # ChromeDriver 실행
-    driver = webdriver.Chrome(options=options)
+    try:
+        driver = webdriver.Chrome(options=options)
+    except:
+        import undetected_chromedriver as uc
+        driver = uc.Chrome(headless=True, use_subprocess=False, driver_executable_path="path/to/chromedriver")
     # driver.maximize_window()
     driver.get(url)
     driver.implicitly_wait(20)

@@ -3,3 +3,4 @@ selenium
 sumy
 streamlit
 chromium
+undetected_chromedriver
