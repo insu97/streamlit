@@ -32,7 +32,6 @@ if st.button("검색 시작하기"):
     options.add_argument("--disable-dev-shm-usage")  # Docker 환경에서 유용
 
     # ChromeDriver 실행
-    service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(options=options)
     driver.maximize_window()
     driver.get(url)
