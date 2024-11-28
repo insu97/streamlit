@@ -34,8 +34,8 @@ if st.button("검색 시작하기"):
         driver = webdriver.Chrome(options=options)
     except:
         from selenium.webdriver.chrome.service import Service
-        service = Service('/home/appuser/.cache/selenium/chromedriver/linux64/131.0.6778.85/chromedriver')
-        driver = webdriver.Chrome(service=service, options=options)
+        # service = Service('/home/appuser/.cache/selenium/chromedriver/linux64/131.0.6778.85/chromedriver')
+        driver = webdriver.Chrome(options=options)
     driver.maximize_window()
     driver.get(url)
     driver.implicitly_wait(20)
