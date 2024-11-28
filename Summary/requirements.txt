@@ -3,5 +3,3 @@ selenium
 sumy
 streamlit
 chromium
-undetected-chromedriver
-distutils
