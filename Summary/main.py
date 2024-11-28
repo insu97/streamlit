@@ -34,8 +34,8 @@ if st.button("검색 시작하기"):
 
     # ChromeDriver 실행
     # service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(options=options)
-
+    # driver = webdriver.Chrome(options=options)
+    driver = webdriver.PhantomJS()
     driver.maximize_window()
     driver.get(url)
     driver.implicitly_wait(20)
