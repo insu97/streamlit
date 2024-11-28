@@ -1,5 +1,4 @@
 sumy
-streamlit
 seleniumbase
 webdriver-manager
 selenium==3.141.0
