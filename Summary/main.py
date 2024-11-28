@@ -10,6 +10,7 @@ from sumy.summarizers.lsa import LsaSummarizer
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from autotest_lib.client.common_lib.cros import chromedriver
 
 # streamlit 설정
 st.set_page_config(layout="wide")
@@ -32,8 +33,10 @@ if st.button("검색 시작하기"):
     options.add_argument("--disable-dev-shm-usage")  # Docker 환경에서 유용
 
     # ChromeDriver 실행
-    driver = webdriver.Chrome(options=options)
-    driver.maximize_window()
+    with chromedriver.chromedriver() as chromedriver_instance:
+        driver = chromedriver_instance.driver
+    # driver = webdriver.Chrome(options=options)
+    # driver.maximize_window()
     driver.get(url)
     driver.implicitly_wait(20)
 
