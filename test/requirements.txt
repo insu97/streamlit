@@ -1,5 +1,4 @@
-streamlit
+streamlit==1.40.2
 selenium==4.27.1
-libasound2
 firefox-esr
 geckodriver
