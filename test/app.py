@@ -9,7 +9,10 @@ from selenium.webdriver.support import expected_conditions as EC
 @st.cache_resource
 def get_driver():
     options = Options()
-    options.add_argument('-headless')
+    options.add_argument('--headless=new')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--disable-gpu')
     return webdriver.Firefox(options=options)
 
 
