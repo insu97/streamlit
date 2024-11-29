@@ -1,8 +1,5 @@
 streamlit
 selenium
-libgtk-3-0
-libdbus-glib-1-2
-libgconf-2-4
 libasound2
 firefox-esr
 geckodriver
