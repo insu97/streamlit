@@ -6,9 +6,6 @@ import urllib.request
 import streamlit as st
 from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
-# from sumy.nlp.tokenizers import Tokenizer
-# from sumy.summarizers.lsa import LsaSummarizer
-# from sumy.parsers.plaintext import PlaintextParser
 from gensim.summarization import summarize
 
 # 텍스트 요약 함수
