@@ -98,5 +98,6 @@ if start_button:
                 # 각 문장 뒤에 마침표를 추가하고 줄바꿈 처리
                 article = '\n'.join([line.strip() + '.' for line in text_lines if line.strip()])
                 st.write("Summary: ", article)
+                st.write("---")
         else:
             st.write(f"Error Code: {rescode}")
