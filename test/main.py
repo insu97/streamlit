@@ -12,14 +12,6 @@ from sumy.parsers.plaintext import PlaintextParser
 
 st.title("NEWS 크롤링 및 요약")
 
-def getID():
-    with open("memo.txt", 'r') as f:
-        lines = f.readlines()
-        client_id = lines[0].strip()  # 첫 번째 줄
-        client_secret = lines[1].strip()  # 두 번째 줄
-
-    return client_id, client_secret
-
 web_df = pd.DataFrame(columns = ("Title", "link", "postdate","Description"))
 
 keyword = st.text_input("검색할 키워드를 입력하세요!")
@@ -29,7 +21,8 @@ if st.button("검색 시작!"):
     if not keyword:
         st.error("검색할 키워드를 입력해주세요!!")
     else:
-        client_id, client_secret = getID()
+        client_id = "xyGqbTdeDOTYIhtY2kwB"
+        client_secret = "_b69A669rX"
         encText = urllib.parse.quote(keyword)
         url = f"https://openapi.naver.com/v1/search/blog?query={encText}&display={count}"  # JSON 결과 URL
         request = urllib.request.Request(url)
