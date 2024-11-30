@@ -6,9 +6,18 @@ import urllib.request
 import streamlit as st
 from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
-from sumy.nlp.tokenizers import Tokenizer
-from sumy.summarizers.lsa import LsaSummarizer
-from sumy.parsers.plaintext import PlaintextParser
+# from sumy.nlp.tokenizers import Tokenizer
+# from sumy.summarizers.lsa import LsaSummarizer
+# from sumy.parsers.plaintext import PlaintextParser
+from gensim.summarization import summarize
+
+# 텍스트 요약 함수
+def summarize_text(text, word_count=50):
+    try:
+        summary = summarize(text, word_count=word_count)
+        return summary
+    except ValueError:
+        return "요약할 내용이 충분하지 않습니다."
 
 st.title("NEWS 크롤링 및 요약")
 
@@ -100,11 +109,15 @@ if start_button:
                 text_lines = article.split('.')
                 # 각 문장 뒤에 마침표를 추가하고 줄바꿈 처리
                 article = '\n'.join([line.strip() + '.' for line in text_lines if line.strip()])
-                parser = PlaintextParser.from_string(article, Tokenizer("korean"))
-                summarizer = LsaSummarizer()
-                summary = summarizer(parser.document, 3)  # 요약할 문장 개수
-                for sentence in summary:
-                    st.write(sentence)
-                    st.write("---")
+
+                summary = summarize_text(article, word_count=50)  # 요약할 단어 수 설정
+                st.write("Summary: ", summary)
+
+                # parser = PlaintextParser.from_string(article, Tokenizer("korean"))
+                # summarizer = LsaSummarizer()
+                # summary = summarizer(parser.document, 3)  # 요약할 문장 개수
+                # for sentence in summary:
+                #     st.write(sentence)
+                #     st.write("---")
         else:
             st.write(f"Error Code: {rescode}")

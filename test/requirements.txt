@@ -3,3 +3,4 @@ sumy
 pandas
 BeautifulSoup4
 konlpy
+gensim
