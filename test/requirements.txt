@@ -3,4 +3,4 @@ sumy
 pandas
 BeautifulSoup4
 konlpy
-gensim
+gensim==3.8.3
