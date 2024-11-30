@@ -15,9 +15,11 @@ st.title("NEWS 크롤링 및 요약")
 web_df = pd.DataFrame(columns = ("Title", "link", "postdate","Description"))
 
 keyword = st.text_input("검색할 키워드를 입력하세요!")
-count = int(st.text_input("보고싶은 뉴스의 수를 입력하세요!"))
+count = st.text_input("보고싶은 뉴스의 수를 입력하세요!")
 
-if st.button("검색 시작!"):
+start_button = st.button("검색 시작!")
+
+if start_button:
     if not keyword:
         st.error("검색할 키워드를 입력해주세요!!")
     else:
