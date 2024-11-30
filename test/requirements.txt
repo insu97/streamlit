@@ -4,3 +4,4 @@ pandas==2.2.3
 beautifulsoup4==4.12.3
 scipy==1.7.0
 numpy==1.22.4
+torch==2.1.0  # or tensorflow==2.13.0
