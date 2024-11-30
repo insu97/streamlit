@@ -6,15 +6,14 @@ import urllib.request
 import streamlit as st
 from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
-from gensim.summarization import summarize
+from transformers import pipeline
+
+summarizer = pipeline("summarization")
 
 # 텍스트 요약 함수
 def summarize_text(text, word_count=50):
-    try:
-        summary = summarize(text, word_count=word_count)
-        return summary
-    except ValueError:
-        return "요약할 내용이 충분하지 않습니다."
+    summary = summarizer(text, max_length=word_count, min_length=25, do_sample=False)
+    return summary[0]['summary_text']
 
 st.title("NEWS 크롤링 및 요약")
 
