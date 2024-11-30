@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 from transformers import pipeline
 
-summarizer = pipeline("summarization")
+summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 
 # 텍스트 요약 함수
 def summarize_text(text, word_count=50):
