@@ -6,16 +6,8 @@ import urllib.request
 import streamlit as st
 from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
-from transformers import pipeline
 
-summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
-
-# 텍스트 요약 함수
-def summarize_text(text, word_count=50):
-    summary = summarizer(text, max_length=word_count, min_length=25, do_sample=False)
-    return summary[0]['summary_text']
-
-st.title("NEWS 크롤링 및 요약")
+st.title("NEWS 크롤링")
 
 web_df = pd.DataFrame(columns = ("Title", "link", "postdate","Description"))
 
@@ -105,15 +97,6 @@ if start_button:
                 text_lines = article.split('.')
                 # 각 문장 뒤에 마침표를 추가하고 줄바꿈 처리
                 article = '\n'.join([line.strip() + '.' for line in text_lines if line.strip()])
-
-                summary = summarize_text(article, word_count=50)  # 요약할 단어 수 설정
-                st.write("Summary: ", summary)
-
-                # parser = PlaintextParser.from_string(article, Tokenizer("korean"))
-                # summarizer = LsaSummarizer()
-                # summary = summarizer(parser.document, 3)  # 요약할 문장 개수
-                # for sentence in summary:
-                #     st.write(sentence)
-                #     st.write("---")
+                st.write("Summary: ", article)
         else:
             st.write(f"Error Code: {rescode}")
