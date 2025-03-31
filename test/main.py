@@ -10,16 +10,26 @@ from transformers import pipeline
 
 st.title("NEWS 크롤링")
 
+try:
+    summarizer = pipeline(
+        "summarization", 
+        model="gogamza/kobart-summarization", 
+        tokenizer="gogamza/kobart-summarization", 
+        device=-1
+    )
+except Exception as e:
+    st.error("모델 로드 실패: " + str(e))
+    summarizer = None
+
 web_df = pd.DataFrame(columns = ("Title", "link", "postdate","Description"))
 
 keyword = st.text_input("검색할 키워드를 입력하세요!")
-try:
-    count = int(st.text_input("보고싶은 뉴스의 수를 입력하세요!"))
-except ValueError:
-    st.error("뉴스 개수는 숫자여야 합니다.")
-    st.stop()
+
+count = int(st.text_input("보고싶은 뉴스의 수를 입력하세요!"))
 
 start_button = st.button("검색 시작!")
+
+
 
 if start_button:
 
@@ -101,18 +111,30 @@ if start_button:
                 st.write("Link : ", web_df['link'][i])
                 st.write("Postdate : ", web_df['postdate'][i])
                 article = web_df['Description'][i]
-                # 마침표 기준으로 텍스트를 분리하고, 각 문장을 새로운 줄에 넣기
+                summary_text = ""
 
-                try:
-                    summary = summarizer(article, max_length=100, min_length=30, do_sample=False)
-                    summary_text = summary[0]['summary_text']
-                except Exception as e:
-                    summary_text = "요약에 실패했습니다: " + str(e)
-
-                text_lines = article.split('.')
-                # 각 문장 뒤에 마침표를 추가하고 줄바꿈 처리
-                article = '\n'.join([line.strip() + '.' for line in text_lines if line.strip()])
+                # 입력 텍스트 길이가 충분할 때만 요약 시도 (예: 30 단어 이상)
+                if summarizer and len(article.split()) > 30:
+                    try:
+                        summary = summarizer(article, max_length=100, min_length=30, do_sample=False)
+                        summary_text = summary[0]['summary_text']
+                    except Exception as e:
+                        summary_text = "요약에 실패했습니다: " + str(e)
+                else:
+                    summary_text = article if article.strip() != "" else "요약할 내용이 없습니다."
+                
                 st.write("Summary: ", summary_text)
                 st.write("---")
+
+                # try:
+                #     summary = summarizer(article, max_length=100, min_length=30, do_sample=False)
+                #     summary_text = summary[0]['summary_text']
+                # except Exception as e:
+                #     summary_text = "요약에 실패했습니다: " + str(e)
+
+                # text_lines = article.split('.')
+                # # 각 문장 뒤에 마침표를 추가하고 줄바꿈 처리
+                # article = '\n'.join([line.strip() + '.' for line in text_lines if line.strip()])
+
         else:
             st.write(f"Error Code: {rescode}")
