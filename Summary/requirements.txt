@@ -2,5 +2,3 @@ beautifulsoup4
 selenium
 sumy
 streamlit
-chromium-browser
-chromium-chromedriver
