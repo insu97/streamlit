@@ -7,6 +7,7 @@ from selenium.webdriver.common.keys import Keys
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 
 # streamlit 설정
@@ -36,7 +37,8 @@ if st.button("검색 시작하기"):
 
     # ChromeDriver 실행
     # driver = webdriver.Chrome(options=options)
-    driver = webdriver.Chrome(executable_path="/usr/bin/chromedriver", options=options)
+    service = Service(executable_path="/usr/bin/chromedriver")
+    driver = webdriver.Chrome(service=service, options=options)
     # driver.maximize_window()
     driver.get(url)
     driver.implicitly_wait(20)
