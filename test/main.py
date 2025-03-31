@@ -13,8 +13,8 @@ st.title("NEWS 크롤링")
 try:
     summarizer = pipeline(
         "summarization", 
-        model="gogamza/kobart-summarization", 
-        tokenizer="gogamza/kobart-summarization", 
+        model="ainize/kobart-news", 
+        tokenizer="ainize/kobart-news", 
         device=-1
     )
 except Exception as e:
