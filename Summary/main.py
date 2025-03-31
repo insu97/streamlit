@@ -37,7 +37,8 @@ if st.button("검색 시작하기"):
 
     # ChromeDriver 실행
     # driver = webdriver.Chrome(options=options)
-    service = Service(executable_path="/usr/bin/chromedriver")
+    service = Service("/path/to/chromedriver")  # Update with your chromedriver path
+    # service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
     # driver.maximize_window()
     driver.get(url)
