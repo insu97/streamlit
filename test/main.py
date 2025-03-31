@@ -109,6 +109,10 @@ if start_button:
                 st.write("Link : ", web_df['link'][i])
                 st.write("Postdate : ", web_df['postdate'][i])
                 article = web_df['Description'][i]
+
+                if len(article) > 2000:  # 대략적으로 자르기
+                    article = article[:2000]
+                    
                 summary_text = ""
 
                 # 입력 텍스트 길이가 충분할 때만 요약 시도 (예: 30 단어 이상)
