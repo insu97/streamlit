@@ -13,13 +13,18 @@ st.title("NEWS 크롤링")
 web_df = pd.DataFrame(columns = ("Title", "link", "postdate","Description"))
 
 keyword = st.text_input("검색할 키워드를 입력하세요!")
-count = st.text_input("보고싶은 뉴스의 수를 입력하세요!")
+try:
+    count = int(st.text_input("보고싶은 뉴스의 수를 입력하세요!"))
+except ValueError:
+    st.error("뉴스 개수는 숫자여야 합니다.")
+    st.stop()
 
 start_button = st.button("검색 시작!")
 
-summarizer = pipeline("summarization", model="gogamza/kobart-summarization", tokenizer="gogamza/kobart-summarization")
-
 if start_button:
+
+    summarizer = pipeline("summarization", model="gogamza/kobart-summarization", tokenizer="gogamza/kobart-summarization")
+
     if not keyword:
         st.error("검색할 키워드를 입력해주세요!!")
     else:
@@ -97,10 +102,17 @@ if start_button:
                 st.write("Postdate : ", web_df['postdate'][i])
                 article = web_df['Description'][i]
                 # 마침표 기준으로 텍스트를 분리하고, 각 문장을 새로운 줄에 넣기
+
+                try:
+                    summary = summarizer(article, max_length=100, min_length=30, do_sample=False)
+                    summary_text = summary[0]['summary_text']
+                except Exception as e:
+                    summary_text = "요약에 실패했습니다: " + str(e)
+
                 text_lines = article.split('.')
                 # 각 문장 뒤에 마침표를 추가하고 줄바꿈 처리
                 article = '\n'.join([line.strip() + '.' for line in text_lines if line.strip()])
-                st.write("Summary: ", article)
+                st.write("Summary: ", summary_text)
                 st.write("---")
         else:
             st.write(f"Error Code: {rescode}")

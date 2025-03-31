@@ -2,5 +2,5 @@ streamlit
 pandas
 beautifulsoup4
 numpy
-transformers
-torch
+transformers>=4.36.2
+torch>=2.0.1
