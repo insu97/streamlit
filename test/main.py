@@ -13,8 +13,8 @@ st.title("NEWS 크롤링")
 try:
     summarizer = pipeline(
         "summarization", 
-        model="ainize/kobart-news", 
-        tokenizer="ainize/kobart-news", 
+        model="gogamza/kobart-summarization", 
+        tokenizer="gogamza/kobart-summarization", 
         device=-1
     )
 except Exception as e:
@@ -25,7 +25,7 @@ web_df = pd.DataFrame(columns = ("Title", "link", "postdate","Description"))
 
 keyword = st.text_input("검색할 키워드를 입력하세요!")
 
-count = int(st.text_input("보고싶은 뉴스의 수를 입력하세요!"))
+count = st.text_input("보고싶은 뉴스의 수를 입력하세요!")
 
 start_button = st.button("검색 시작!")
 
