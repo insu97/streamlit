@@ -23,6 +23,7 @@ if st.button("검색 시작하기"):
     # 크롤링 시작
     url = 'https://sports.chosun.com/football/?action=worldfootball'
     options = Options()
+    options.binary_location = "/usr/bin/chromium-browser"  # May vary depending on your setup
     options.add_argument('--no-sandbox')
     options.add_argument('--headless')
     options.add_argument('--disable-dev-shm-usage')
@@ -34,7 +35,8 @@ if st.button("검색 시작하기"):
     options.add_argument("--disable-dev-shm-usage");
 
     # ChromeDriver 실행
-    driver = webdriver.Chrome(options=options)
+    # driver = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome(executable_path="/usr/bin/chromedriver", options=options)
     # driver.maximize_window()
     driver.get(url)
     driver.implicitly_wait(20)
