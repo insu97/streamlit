@@ -24,21 +24,20 @@ if st.button("검색 시작하기"):
     # 크롤링 시작
     url = 'https://sports.chosun.com/football/?action=worldfootball'
     options = Options()
-    options.binary_location = "/usr/bin/chromium-browser"  # May vary depending on your setup
+    options.binary_location = "/usr/bin/chromium-browser"
     options.add_argument('--no-sandbox')
     options.add_argument('--headless')
     options.add_argument('--disable-dev-shm-usage')
 
-    options.add_argument("start-maximized");
-    options.add_argument("disable-infobars");
-    options.add_argument("--disable-extensions");
-    options.add_argument("--disable-gpu");
-    options.add_argument("--disable-dev-shm-usage");
+    options.add_argument("start-maximized")
+    options.add_argument("disable-infobars")
+    options.add_argument("--disable-extensions")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-dev-shm-usage")
 
     # ChromeDriver 실행
     # driver = webdriver.Chrome(options=options)
-    service = Service("/path/to/chromedriver")  # Update with your chromedriver path
-    # service = Service(ChromeDriverManager().install())
+    service = Service("/usr/lib/chromium-browser/chromedriver")
     driver = webdriver.Chrome(service=service, options=options)
     # driver.maximize_window()
     driver.get(url)
