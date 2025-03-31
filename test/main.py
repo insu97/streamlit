@@ -115,14 +115,15 @@ if start_button:
                 if summarizer and len(article.split()) > 30:
                     try:
                         # truncation=True를 추가해 모델 입력이 너무 길 경우 자르도록 함
-                        summary = summarizer(article, max_length=100, min_length=30, do_sample=False, truncation=True)
+                        summary = summarizer(article, max_length=100, min_length=30, do_sample=False)
                         # 요약 결과가 비어있지 않은지 확인
                         if summary and len(summary) > 0 and "summary_text" in summary[0]:
                             summary_text = summary[0]["summary_text"]
                         else:
                             summary_text = "요약 결과가 없습니다."
                     except Exception as e:
-                        summary_text = "요약에 실패했습니다: " + str(e)
+                        st.error(f"요약 중 오류 발생: {e}")
+                        summary_text = "요약 실패"
                 else:
                     summary_text = article if article.strip() != "" else "요약할 내용이 없습니다."
                 
