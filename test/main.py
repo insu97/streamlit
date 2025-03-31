@@ -6,6 +6,7 @@ import urllib.request
 import streamlit as st
 from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
+from transformers import pipeline
 
 st.title("NEWS 크롤링")
 
@@ -15,6 +16,8 @@ keyword = st.text_input("검색할 키워드를 입력하세요!")
 count = st.text_input("보고싶은 뉴스의 수를 입력하세요!")
 
 start_button = st.button("검색 시작!")
+
+summarizer = pipeline("summarization", model="gogamza/kobart-summarization", tokenizer="gogamza/kobart-summarization")
 
 if start_button:
     if not keyword:
