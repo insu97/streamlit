@@ -33,8 +33,6 @@ start_button = st.button("검색 시작!")
 
 if start_button:
 
-    summarizer = pipeline("summarization", model="gogamza/kobart-summarization", tokenizer="gogamza/kobart-summarization")
-
     if not keyword:
         st.error("검색할 키워드를 입력해주세요!!")
     else:
